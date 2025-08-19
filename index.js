@@ -1,9 +1,6 @@
-const SuperHero = require("./super-hero");
+const math = require("./math");
 
-const batman = new SuperHero("Batman");
-console.log(batman.getName());
-batman.setName("Batman 2");
-console.log(batman.getName());
+const {add, subtract} = math;
 
-const superman = new SuperHero("Superman");
-console.log(superman.getName());
+console.log(add(10,20));
+console.log(subtract(10,20));
