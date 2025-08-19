@@ -1,14 +1,9 @@
-const superHero = require("./super-hero");
-console.log(superHero.getName());
-superHero.setName("Superman");
-console.log(superHero.getName());
+const SuperHero = require("./super-hero");
 
-const newSuperHero = require("./super-hero");
-console.log(newSuperHero.getName());
+const batman = new SuperHero("Batman");
+console.log(batman.getName());
+batman.setName("Batman 2");
+console.log(batman.getName());
 
-/*
-Output:
-Batman
-Superman
-Superman - due to Module caching (node cache the require("./super-hero") and objects are passed by reference) 
-*/
+const superman = new SuperHero("Superman");
+console.log(superman.getName());
