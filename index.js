@@ -1,7 +1,15 @@
+const DrinkMachine = require("./drink-machine.js");
 const PizzaShop = require("./pizza-shop.js");
 
 const pizzaShop = new PizzaShop();
-pizzaShop.order();
+const drinkMachine = new DrinkMachine();
+
+pizzaShop.on("order", (size, topping) => {
+  console.log(`Order received! Baking a pizza ${size} with ${topping}`);
+  drinkMachine.serveDrink(size);
+});
+
+pizzaShop.order("large", "mushrooms");
 pizzaShop.displayOrderNumber();
 
 // const EventEmitter = require("node:events");
