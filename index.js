@@ -1,32 +1,23 @@
-const path = require('node:path');
+const PizzaShop = require("./pizza-shop.js");
 
-console.log('basename:', path.basename(__filename)); // e.g., index.js
-console.log('dirname:', path.dirname(__filename)); // directory of this file
-console.log('extname:', path.extname(__filename)); // .js
+const pizzaShop = new PizzaShop();
+pizzaShop.order();
+pizzaShop.displayOrderNumber();
 
-console.log('format:', path.format({
-  dir: __dirname,
-  base: 'file.txt'
-})); // e.g., /path/to/dir/file.txt
+// const EventEmitter = require("node:events");
 
-console.log('isAbsolute:', path.isAbsolute(__filename)); // true
+// const emitter = new EventEmitter();
 
-console.log('join:', path.join(__dirname, 'foo', 'bar')); // e.g., /path/to/dir/foo/bar
+// // Multiple listeners to a single event
+// emitter.on("order-pizza", (size, topping) => {
+//   console.log(`Order received! Baking a pizza ${size} with ${topping}`);
+// });
 
-console.log('normalize:', path.normalize(__dirname + '/../foo//bar//baz/..')); // normalized path
+// emitter.on("order-pizza", (size) => {
+//   if(size == "large"){
+//     console.log("Serving complimentary drink");
+//   }
+// });
 
-console.log('parse:', path.parse(__filename)); // object with root, dir, base, ext, name
-
-console.log('relative:', path.relative(__dirname, __filename)); // e.g., index.js
-
-console.log('resolve:', path.resolve(__dirname, 'foo/bar')); // absolute path to foo/bar
-
-console.log('sep:', path.sep); // / (on Mac/Linux)
-
-console.log('delimiter:', path.delimiter); // : (on Mac/Linux)
-
-console.log('toNamespacedPath:', path.toNamespacedPath(__filename)); // same as __filename on Mac/Linux
-
-// POSIX and WIN32 examples
-console.log('posix.join:', path.posix.join('/foo', 'bar', 'baz/asdf', 'quux', '..')); // /foo/bar/baz/asdf
-console.log('win32.join:', path.win32.join('C:\\foo', 'bar', 'baz\\asdf', 'quux', '..'));
+// console.log("Before events");
+// emitter.emit("order-pizza", "large", "mushroom");
