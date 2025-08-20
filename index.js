@@ -1,31 +1,35 @@
-const DrinkMachine = require("./drink-machine.js");
-const PizzaShop = require("./pizza-shop.js");
+const buffer = new Buffer.from("Ethereum", "utf-8");
 
-const pizzaShop = new PizzaShop();
-const drinkMachine = new DrinkMachine();
+console.log(buffer);
+console.log(buffer.toString());
+console.log(buffer.toJSON());
 
-pizzaShop.on("order", (size, topping) => {
-  console.log(`Order received! Baking a pizza ${size} with ${topping}`);
-  drinkMachine.serveDrink(size);
-});
+/*
+<Buffer 45 74 68 65 72 65 75 6d> // hexadecimal
+Ethereum
+{
+  type: 'Buffer',
+  data: [
+     69, 116, 104,
+    101, 114, 101,
+    117, 109
+  ]
+}
+*/
 
-pizzaShop.order("large", "mushrooms");
-pizzaShop.displayOrderNumber();
+buffer.write("Blockchain");
+console.log(buffer);
+console.log(buffer.toString());
 
-// const EventEmitter = require("node:events");
+/*
+<Buffer 42 6c 6f 63 6b 63 68 61>
+Blockcha // Buffer size is limited
+{
+  type: 'Buffer',
+  data: [
+     66, 108, 111, 99,
+    107,  99, 104, 97
+  ]
+}
+*/
 
-// const emitter = new EventEmitter();
-
-// // Multiple listeners to a single event
-// emitter.on("order-pizza", (size, topping) => {
-//   console.log(`Order received! Baking a pizza ${size} with ${topping}`);
-// });
-
-// emitter.on("order-pizza", (size) => {
-//   if(size == "large"){
-//     console.log("Serving complimentary drink");
-//   }
-// });
-
-// console.log("Before events");
-// emitter.emit("order-pizza", "large", "mushroom");
