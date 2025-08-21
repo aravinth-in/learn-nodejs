@@ -1,4 +1,6 @@
 const http = require("node:http");
+const fs = require("node:fs");
+
 
 const server = http.createServer((req, res) => {
   const superProtocol = {
@@ -6,8 +8,10 @@ const server = http.createServer((req, res) => {
     lastName: "Digital Ledger",
   };
 
-  res.writeHead(200, {"Content-Type": "application/json"});
-  res.end(JSON.stringify(superProtocol));
+  const html = fs.readFileSync("./index.html", "utf-8");
+  fs.createReadStream(__dirname + "/index.html").pipe(res);
+  // res.writeHead(200, {"Content-Type": "text/html"});
+  // res.end(html);
 });
 
 server.listen(3000, () => {
