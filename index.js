@@ -1,35 +1,31 @@
-const buffer = new Buffer.from("Ethereum", "utf-8");
+const fs = require("node:fs");
 
-console.log(buffer);
-console.log(buffer.toString());
-console.log(buffer.toJSON());
+const fileContents = fs.readFileSync("./file.txt");
+console.log(fileContents);
+// <Buffer 54 68 69 73 20 69 73 20 61 20 66 69 6c 65 2e>
 
-/*
-<Buffer 45 74 68 65 72 65 75 6d> // hexadecimal
-Ethereum
-{
-  type: 'Buffer',
-  data: [
-     69, 116, 104,
-    101, 114, 101,
-    117, 109
-  ]
-}
-*/
+const fileContents1 = fs.readFileSync("./file.txt", "utf-8");
+console.log(fileContents1);
+// This is a file.
 
-buffer.write("Blockchain");
-console.log(buffer);
-console.log(buffer.toString());
+fs.readFile("./file.txt", (error, data) => {
+  if(error){
+    console.log(error);
+  }
+  else{
+    console.log(data);
+    // <Buffer 54 68 69 73 20 69 73 20 61 20 66 69 6c 65 2e>
+  }
+});
 
-/*
-<Buffer 42 6c 6f 63 6b 63 68 61>
-Blockcha // Buffer size is limited
-{
-  type: 'Buffer',
-  data: [
-     66, 108, 111, 99,
-    107,  99, 104, 97
-  ]
-}
-*/
-
+// Synchronous
+fs.writeFileSync("./greet.txt", "Hello Ethereum!");
+// Asynchronous
+fs.writeFileSync("./greet.txt", " Hello Aave!", { flag: "a"}, (error) => {
+  if(error){
+    console.log(error);
+  }
+  else{
+    console.log("File written successfully");
+  }
+});
