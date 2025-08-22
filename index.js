@@ -1,29 +1,39 @@
-const http = require("node:http");
-const fs = require("node:fs");
+const crypto = require("node:crypto");
 
 
-const server = http.createServer((req, res) => {
-  if(req.url === "/"){
-     res.writeHead(200, {"Content-Type": "text/plain"});
-     res.end("Home Page");
-  }
-  else if(req.url === "/about") {
-     res.writeHead(200, {"Content-Type": "text/plain"});
-     res.end("About Page");
-  }
-  else if(req.url === "/api") {
-     res.writeHead(200, {"Content-Type": "application/json"});
-     res.end(JSON.stringify({
-      firstName: "Ethereum",
-      lastName: "World Ledger"
-     }));
-  }
-  else{
-    res.writeHead(404);
-    res.end("Page Not Found");
-  }
-});
+const password = "secret";
+const salt = "salt";
+const iterations = 100000;
+const keylen = 64;
+const digest = "sha512";
+const count = 16;
 
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
-})
+// Synchronous
+console.time("pbkdf2Sync");
+for (let i = 0; i < count; i++) {
+    crypto.pbkdf2Sync(password, salt, iterations, keylen, digest);
+}
+console.timeEnd("pbkdf2Sync");
+
+// Asynchronous
+console.time("pbkdf2Async");
+let completed = 0;
+for (let i = 0; i < count; i++) {
+    crypto.pbkdf2(password, salt, iterations, keylen, digest, (err, hashAsync) => {
+        if (err) throw err;
+        completed++;
+        if (completed === count) {
+            console.timeEnd("pbkdf2Async");
+        }
+    });
+}
+/*
+pbkdf2Sync: 3.342s
+pbkdf2Async: 922.079ms
+*/
+
+/*
+learn-nodejs % UV_THREADPOOL_SIZE=16 node index.js
+pbkdf2Sync: 3.345s
+pbkdf2Async: 476.308ms
+*/
