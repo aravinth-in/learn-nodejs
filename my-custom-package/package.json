@@ -1,0 +1,11 @@
+{
+    "name": "greet-onchain",
+    "version": "1.0.0",
+    "description": "onchain",
+    "keywords": [
+        "onchain",
+        "ethereum",
+        "smart contract"
+    ],
+    "main": "index.js"
+}
