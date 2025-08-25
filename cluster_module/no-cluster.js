@@ -1,3 +1,10 @@
+/*
+ * You can use PM2 to manage clustering:
+ *   pm2 start no-cluster.js -i 0   # 0 lets PM2 decide the optimal number of workers
+ *   pm2 start no-cluster.js -i 2   # 2 creates 2 workers
+ *   pm2 stop no-cluster.js         # Stop the app
+*/
+
 const http = require("http");
 
 const server = http.createServer((req, res) => {
