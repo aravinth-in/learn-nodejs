@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+// const yargs = require("yargs");
+// const {argv} = yargs(process.argv);
 
-const yargs = require("yargs");
-const {argv} = yargs(process.argv);
+const inquirer = require("inquirer");
 
 console.log(process.argv);
 
@@ -15,4 +16,13 @@ const printFiveMoves = async (pokemonName) => {
     console.log(moves.slice(0,5));
 }
 
-printFiveMoves(argv.pokemon);
+const prompt = inquirer.createPromptModule();
+prompt([{
+    type: "input",
+    name: "pokemon",
+    message: "Enter a pokemon name to view its first 5 moves:"
+}]).then((answers) =>{
+    const pokemon = answers.pokemon;
+    printFiveMoves(pokemon);
+})
+
