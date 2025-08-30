@@ -1,0 +1,38 @@
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const port = 3000;
+
+// Set the view engine as ejs
+app.set('view engine', 'ejs');
+
+// Set the directory for the views
+app.set('views', path.join(__dirname, 'views'));
+
+const products = [
+    {
+        id: 1,
+        label : 'Product 1'
+    },
+    {
+        id: 2,
+        label : 'Product 2'
+    },
+    {
+        id: 3,
+        label : 'Product 3'
+    }
+]
+
+app.get('/', (req, res) => {
+    res.render('home', {title: 'Home', products: products});
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', {title: 'Home'});
+});
+
+app.listen(port, () => {
+    console.log(`Server is running at port ${port}`);
+});
