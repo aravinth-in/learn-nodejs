@@ -80,7 +80,7 @@ const loginUser = async(req, res) => {
             username : existingUser.username,
             role : existingUser.role
         }, process.env.JWT_SECRET_KEY, {
-            expiresIn : '15m'
+            expiresIn : '60m'
         })
 
         res.status(200).json({
@@ -98,7 +98,49 @@ const loginUser = async(req, res) => {
     }
 };
 
+
+const changePassword = async(req, res) => {
+    try {
+        const userId = req.userInfo.userId;
+        const {oldPassword, newPassword} =  req.body;
+        const user = await User.findById(userId);
+        if(!user){
+            res.status(400).json({
+                success : false,
+                message : 'User not found'
+            })
+        }
+
+        const isPasswordMatch = await bcrypt.compare(oldPassword, user.password);
+        if(!isPasswordMatch){
+            res.status(400).json({
+                success : false,
+                message : 'Old password is incorrect! Please try again.'
+            })
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const newHashedPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = newHashedPassword;
+        await user.save();
+
+        res.status(200).json({
+            success : true,
+            message : 'Password changed successfully'
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success : false,
+            message : 'Some error occured! Please try again'
+        })
+    }
+};
+
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    changePassword
 }
