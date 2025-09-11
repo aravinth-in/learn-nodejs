@@ -18,6 +18,6 @@ router.post(
   uploadImageController
 );
 router.get("/get", authMiddelware, fetchImagesController);
-router.delete('/:id', authMiddelware, adminMiddelware, deleteImageController);
+router.delete("/:id", authMiddelware, adminMiddelware, deleteImageController);
 
 module.exports = router;

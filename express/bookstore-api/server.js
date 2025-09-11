@@ -1,7 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
-const connectToDB = require('./database/db');
-const bookRoutes = require('./routes/book-routes');
+const connectToDB = require("./database/db");
+const bookRoutes = require("./routes/book-routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,9 +13,8 @@ connectToDB();
 app.use(express.json());
 
 // Routes
-app.use('/api/books', bookRoutes);
+app.use("/api/books", bookRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running at port ${PORT}`);
+  console.log(`Server is running at port ${PORT}`);
 });
-

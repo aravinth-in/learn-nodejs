@@ -37,6 +37,7 @@ const createBook = async (req, res) => {
 
 const getBookWithAuthor = async (req, res) => {
   try {
+    // With Population (Full Author Data)
     const book = await Book.findById(req.params.id).populate("author");
     if (!book) {
       res.status(404).json({
@@ -56,6 +57,7 @@ const getBookWithAuthor = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   createAuthor,
   createBook,
