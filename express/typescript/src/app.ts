@@ -18,7 +18,7 @@ app.use((req: CustomRequest, res: Response, next: NextFunction) => {
 });
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Typescript from express");
+  res.send("Typescript from Express");
 });
 
 interface User {
@@ -26,6 +26,7 @@ interface User {
   email: string;
 }
 
+// Generic: Request<Params, ResponseBody, RequestBody, QueryString>
 app.post("/user", (req: Request<{}, {}, User>, res: Response) => {
   const { name, email } = req.body;
   res.json({

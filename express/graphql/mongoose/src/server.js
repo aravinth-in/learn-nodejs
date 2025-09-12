@@ -3,10 +3,10 @@ const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const typeDefs = require("./graphql/schema");
 const resolvers = require("./graphql/resolvers");
-const connectDB = require("./database/database");
+const connectToDB = require("./database/database");
 
 async function startServer() {
-  connectDB();
+  connectToDB();
   const server = new ApolloServer({
     typeDefs,
     resolvers,
